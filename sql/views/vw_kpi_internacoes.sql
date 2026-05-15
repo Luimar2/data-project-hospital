@@ -26,7 +26,8 @@ SELECT
 
     SUM(
         CASE
-            WHEN fi.desfecho = 'Óbito'
+            WHEN LOWER(TRIM(fi.desfecho))
+                IN ('óbito', 'obito')
             THEN 1
             ELSE 0
         END
@@ -36,7 +37,8 @@ SELECT
         (
             SUM(
                 CASE
-                    WHEN fi.desfecho = 'Óbito'
+                    WHEN LOWER(TRIM(fi.desfecho))
+                        IN ('óbito', 'obito')
                     THEN 1
                     ELSE 0
                 END
