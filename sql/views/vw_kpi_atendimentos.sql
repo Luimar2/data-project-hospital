@@ -2,6 +2,16 @@ CREATE OR REPLACE VIEW vw_kpi_atendimentos AS
 
 SELECT
 
+    STR_TO_DATE(
+        CONCAT(
+            dt.ano,
+            '-',
+            LPAD(dt.mes,2,'0'),
+            '-01'
+        ),
+        '%Y-%m-%d'
+    ) AS data_mes,
+
     dt.ano,
     dt.mes,
     dt.nome_mes,

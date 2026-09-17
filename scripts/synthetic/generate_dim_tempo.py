@@ -1,18 +1,21 @@
+import os
 from pathlib import Path
+from urllib.parse import quote_plus
+from dotenv import load_dotenv
 import pandas as pd
 from sqlalchemy import create_engine
-from urllib.parse import quote_plus
-import os
 
 # ==========================
-# CONFIGURAÇÃO MYSQL
+# CONFIGURAÇÃO MYSQL (.env)
 # ==========================
 
-DB_USER = "user"
-DB_PASSWORD = "userpass"
-DB_HOST = "localhost"
-DB_PORT = "3306"
-DB_NAME = "hospital_dw"
+load_dotenv()
+
+DB_USER = os.getenv("MYSQL_USER")
+DB_PASSWORD = os.getenv("MYSQL_PASSWORD")
+DB_HOST = os.getenv("MYSQL_HOST")
+DB_PORT = os.getenv("MYSQL_PORT")
+DB_NAME = os.getenv("MYSQL_DATABASE")
 
 password = quote_plus(DB_PASSWORD)
 

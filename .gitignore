@@ -1,6 +1,26 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables / secrets
 .env
-data/raw/*
-data/processed/*
-logs/
+.env.*
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Anotações Pessoais
+markdowns/

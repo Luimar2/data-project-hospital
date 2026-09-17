@@ -2,6 +2,11 @@ CREATE OR REPLACE VIEW vw_performance_hospitalar AS
 
 SELECT
 
+    STR_TO_DATE(
+        CONCAT(a.ano,'-',LPAD(a.mes,2,'0'),'-01'),
+        '%Y-%m-%d'
+    ) AS data_mes,
+
     a.ano,
     a.mes,
     a.nome_mes,
