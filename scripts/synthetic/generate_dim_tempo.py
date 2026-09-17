@@ -1,73 +1,56 @@
-import os
+"""
+scripts/synthetic/generate_dim_tempo.py
+Geração da dimensão de tempo com granularidade diária.
+"""
+
 from pathlib import Path
-from urllib.parse import quote_plus
-from dotenv import load_dotenv
 import pandas as pd
-from sqlalchemy import create_engine
+from db import engine
 
-# ==========================
-# CONFIGURAÇÃO MYSQL (.env)
-# ==========================
+# Configuração de diretório de backup na raiz
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+OUTPUT_DIR = ROOT_DIR / "data" / "processed"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-load_dotenv()
 
-DB_USER = os.getenv("MYSQL_USER")
-DB_PASSWORD = os.getenv("MYSQL_PASSWORD")
-DB_HOST = os.getenv("MYSQL_HOST")
-DB_PORT = os.getenv("MYSQL_PORT")
-DB_NAME = os.getenv("MYSQL_DATABASE")
+def gerar_dim_tempo(start_date="2025-01-01", end_date="2026-12-31"):
+    print(f"[*] Gerando dim_tempo de {start_date} até {end_date}...")
+    datas = pd.date_range(start=start_date, end=end_date)
 
-password = quote_plus(DB_PASSWORD)
+    df = pd.DataFrame({
+        "data_completa": datas.date,
+        "dia": datas.day,
+        "mes": datas.month,
+        "nome_mes": datas.strftime("%B"),
+        "trimestre": datas.quarter,
+        "ano": datas.year,
+        "dia_semana": datas.strftime("%A"),
+        "fim_semana": datas.weekday >= 5
+    })
 
-DATABASE_URL = (
-    f"mysql+pymysql://"
-    f"{DB_USER}:{password}"
-    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-)
+    return df
 
-engine = create_engine(DATABASE_URL)
 
-# ==========================
-# GERAR DIM_TEMPO
-# ==========================
+def persistir_banco(df, nome_tabela="dim_tempo"):
+    # 1. Salva Backup CSV
+    csv_path = OUTPUT_DIR / f"{nome_tabela}.csv"
+    print(f"[*] Salvando backup em: {csv_path}...")
+    df.to_csv(csv_path, index=False, encoding="utf-8")
+    print(f"[✓] Backup CSV concluído com sucesso!")
 
-datas = pd.date_range(
-    start="2025-01-01",
-    end="2026-12-31"
-)
+    # 2. Inserção otimizada no MySQL
+    print(f"[*] Inserindo {len(df):,} registros na tabela {nome_tabela}...")
+    df.to_sql(
+        name=nome_tabela,
+        con=engine,
+        if_exists="append",
+        index=False,
+        chunksize=5000,
+        method="multi"
+    )
+    print(f"[✓] Carga de {nome_tabela} finalizada com sucesso!")
 
-df = pd.DataFrame({
-    "data_completa": datas.date,
-    "dia": datas.day,
-    "mes": datas.month,
-    "nome_mes": datas.strftime("%B"),
-    "trimestre": datas.quarter,
-    "ano": datas.year,
-    "dia_semana": datas.strftime("%A"),
-    "fim_semana": datas.weekday >= 5
-})
 
-# ==========================
-# EXPORT CSV (backup)
-# ==========================
-
-output_dir = Path("data/processed")
-output_dir.mkdir(parents=True, exist_ok=True)
-
-csv_path = output_dir / "dim_tempo.csv"
-
-df.to_csv(csv_path, index=False)
-
-# ==========================
-# INSERIR MYSQL
-# ==========================
-
-df.to_sql(
-    name="dim_tempo",
-    con=engine,
-    if_exists="append",
-    index=False
-)
-
-print("dim_tempo carregada com sucesso!")
-print(f"Total registros: {len(df)}")
+if __name__ == "__main__":
+    df_tempo = gerar_dim_tempo(start_date="2025-01-01", end_date="2026-12-31")
+    persistir_banco(df_tempo, "dim_tempo")

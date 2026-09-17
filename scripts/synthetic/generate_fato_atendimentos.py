@@ -1,62 +1,38 @@
 """
-generate_fato_atendimentos.py
+scripts/synthetic/generate_fato_atendimentos.py
 Geração sintética de atendimentos ambulatoriais e de urgência
 com plausibilidade clínica, sazonalidade e introspecção dinâmica de schema.
 """
 
-import os
 import random
-from urllib.parse import quote_plus
-from datetime import datetime
-from dotenv import load_dotenv
+from pathlib import Path
 import numpy as np
 import pandas as pd
-from sqlalchemy import create_engine
+from db import engine
 
 # 1. Reprodutibilidade
 SEED = 42
 random.seed(SEED)
 np.random.seed(SEED)
 
-# 2. Conexão MySQL (.env)
-load_dotenv()
-
-DB_USER = os.getenv("MYSQL_USER")
-DB_PASSWORD = os.getenv("MYSQL_PASSWORD")
-DB_HOST = os.getenv("MYSQL_HOST")
-DB_PORT = os.getenv("MYSQL_PORT")
-DB_NAME = os.getenv("MYSQL_DATABASE")
-
-password = quote_plus(DB_PASSWORD)
-
-DATABASE_URL = (
-    f"mysql+pymysql://"
-    f"{DB_USER}:{password}"
-    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-)
-
-engine = create_engine(DATABASE_URL)
+# 2. Diretório de backup na raiz
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+OUTPUT_DIR = ROOT_DIR / "data" / "processed"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def carregar_dimensoes():
     """Carrega as dimensões inspecionando dinamicamente as colunas existentes."""
     print("[*] Carregando dimensões do banco de dados...")
     with engine.connect() as conn:
-        # 1. dim_tempo (usa 'data_completa' confirmada)
         df_tempo = pd.read_sql("SELECT id_tempo, data_completa, mes FROM dim_tempo", conn)
         df_tempo.rename(columns={'data_completa': 'data'}, inplace=True)
         df_tempo['data'] = pd.to_datetime(df_tempo['data'])
 
-        # 2. dim_paciente
         df_paciente = pd.read_sql("SELECT id_paciente FROM dim_paciente", conn)
-
-        # 3. dim_setor
         df_setor = pd.read_sql("SELECT * FROM dim_setor", conn)
-
-        # 4. dim_convenio
         df_convenio = pd.read_sql("SELECT * FROM dim_convenio", conn)
 
-        # 5. Inspeciona colunas reais da fato_atendimentos
         fato_cols = pd.read_sql("DESCRIBE fato_atendimentos", conn)['Field'].tolist()
         print(f"    -> Colunas detectadas em fato_atendimentos: {fato_cols}")
 
@@ -78,13 +54,13 @@ def calcular_pesos_temporais(df_tempo):
 def amostrar_tempo_espera(nome_setor):
     setor_lower = str(nome_setor).lower()
     if "emerg" in setor_lower:
-        val = np.random.lognormal(mean=2.89, sigma=0.45)  # Mediana ~18 min
+        val = np.random.lognormal(mean=2.89, sigma=0.45)
     elif "pronto" in setor_lower:
-        val = np.random.lognormal(mean=4.17, sigma=0.55)  # Mediana ~65 min
+        val = np.random.lognormal(mean=4.17, sigma=0.55)
     elif "cirurg" in setor_lower:
-        val = np.random.lognormal(mean=3.55, sigma=0.30)  # ~35 min
+        val = np.random.lognormal(mean=3.55, sigma=0.30)
     else:
-        val = np.random.lognormal(mean=3.80, sigma=0.40)  # ~45 min
+        val = np.random.lognormal(mean=3.80, sigma=0.40)
     return int(np.clip(val, 5, 240))
 
 
@@ -116,7 +92,6 @@ def definir_tipo_e_valores(nome_setor, info_convenio_str):
         tempo_atendimento = int(np.clip(np.random.normal(25, 8), 10, 60))
         custo_base = np.random.uniform(120.0, 350.0)
 
-    # Multiplicador se particular ou premium
     mult_convenio = 1.0
     conv_lower = str(info_convenio_str).lower()
     if "particular" in conv_lower:
@@ -134,7 +109,6 @@ def gerar_fato_atendimentos(num_registros=50000):
     df_tempo, df_paciente, df_setor, df_convenio, fato_cols = carregar_dimensoes()
     df_tempo_calc = calcular_pesos_temporais(df_tempo)
 
-    # IDENTIFICAÇÃO CORRETA: ignora colunas 'id_'
     col_nome_setor = next((c for c in df_setor.columns if not c.startswith('id_') and ('nome' in c or 'setor' in c or 'desc' in c)), 'nome_setor')
     col_nome_conv = next((c for c in df_convenio.columns if not c.startswith('id_')), df_convenio.columns[-1])
 
@@ -197,23 +171,29 @@ def gerar_fato_atendimentos(num_registros=50000):
         if (i + 1) % 10000 == 0:
             print(f"    -> {i + 1:,} registros processados...")
 
-    df_fato = pd.DataFrame(registros)
-    return df_fato
+    return pd.DataFrame(registros)
 
 
-def persistir_banco(df_fato):
-    print(f"[*] Inserindo {len(df_fato):,} registros na tabela fato_atendimentos...")
-    df_fato.to_sql(
-        name="fato_atendimentos",
+def persistir_banco(df, nome_tabela="fato_atendimentos"):
+    # 1. Salva Backup CSV
+    csv_path = OUTPUT_DIR / f"{nome_tabela}.csv"
+    print(f"[*] Salvando backup em: {csv_path}...")
+    df.to_csv(csv_path, index=False, encoding="utf-8")
+    print(f"[✓] Backup CSV concluído com sucesso!")
+
+    # 2. Inserção otimizada no MySQL
+    print(f"[*] Inserindo {len(df):,} registros na tabela {nome_tabela}...")
+    df.to_sql(
+        name=nome_tabela,
         con=engine,
         if_exists="append",
         index=False,
         chunksize=5000,
         method="multi"
     )
-    print("[✓] Carga de fato_atendimentos finalizada com sucesso!")
+    print(f"[✓] Carga de {nome_tabela} finalizada com sucesso!")
 
 
 if __name__ == "__main__":
-    df_resultado = gerar_fato_atendimentos(num_registros=50000)
-    persistir_banco(df_resultado)
+    df_fato = gerar_fato_atendimentos(num_registros=50000)
+    persistir_banco(df_fato, "fato_atendimentos")
