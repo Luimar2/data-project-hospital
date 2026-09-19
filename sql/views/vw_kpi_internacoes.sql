@@ -1,13 +1,11 @@
 CREATE OR REPLACE VIEW vw_kpi_internacoes AS
 
 SELECT
-
     dt.ano,
     dt.mes,
     dt.nome_mes,
 
-    COUNT(fi.id_internacao)
-        AS total_internacoes,
+    COUNT(fi.id_internacao) AS total_internacoes,
 
     ROUND(
         AVG(fi.dias_internado),
@@ -19,6 +17,12 @@ SELECT
         2
     ) AS custo_medio_internacao,
 
+    -- Métrica corrigida: Custo total dividido pelo total de dias reais internados
+    ROUND(
+        SUM(fi.custo_total) / NULLIF(SUM(fi.dias_internado), 0),
+        2
+    ) AS custo_medio_diario,
+
     ROUND(
         SUM(fi.custo_total),
         2
@@ -26,8 +30,7 @@ SELECT
 
     SUM(
         CASE
-            WHEN LOWER(TRIM(fi.desfecho))
-                IN ('óbito', 'obito')
+            WHEN LOWER(TRIM(fi.desfecho)) IN ('óbito', 'obito')
             THEN 1
             ELSE 0
         END
@@ -37,14 +40,13 @@ SELECT
         (
             SUM(
                 CASE
-                    WHEN LOWER(TRIM(fi.desfecho))
-                        IN ('óbito', 'obito')
+                    WHEN LOWER(TRIM(fi.desfecho)) IN ('óbito', 'obito')
                     THEN 1
                     ELSE 0
                 END
             )
             /
-            COUNT(fi.id_internacao)
+            NULLIF(COUNT(fi.id_internacao), 0)
         ) * 100,
         2
     ) AS taxa_mortalidade,

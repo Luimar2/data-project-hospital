@@ -8,4 +8,4 @@ CREATE TABLE dim_tempo (
     ano INT,
     dia_semana VARCHAR(20),
     fim_semana BOOLEAN
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

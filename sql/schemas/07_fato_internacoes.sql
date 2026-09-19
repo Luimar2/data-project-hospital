@@ -30,4 +30,4 @@ CREATE TABLE fato_internacoes (
 
     FOREIGN KEY (id_tempo_alta)
         REFERENCES dim_tempo(id_tempo)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

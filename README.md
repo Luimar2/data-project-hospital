@@ -21,10 +21,36 @@ Construir um projeto prático de dados que permita trabalhar, de forma integrada
 
 O projeto também serve como ambiente de estudo e portfólio para demonstrar um fluxo de trabalho de análise de dados aplicado a um contexto empresarial.
 
+## Contexto Hospitalar Simulado
+
+Hospital de médio porte.
+
+Estrutura:
+
+- 80 leitos enfermaria
+- 20 leitos maternidade
+- 10 leitos privativos
+- 10 leitos UTI adulto
+- 14 leitos UTI Neo
+- 8 salas centro cirúrgico
+- 4 salas PPP (pré-parto)
+- Urgência e emergência 24h
+- Pronto Atendimento 24h
+- Internação
+- Cardiologia
+- Obstetrícia
+- Cirurgias eletivas
+- Convênios + SUS
+
+Volume operacional:
+
+- ~6500 atendimentos/mês
+- ~910 internações/mês
+- Dados de 2025–2026
+
 ## Tecnologias
 
 * **Python**
-
   * Pandas
   * NumPy
   * Faker
@@ -58,9 +84,11 @@ data-project-hospital/
 ├── notebooks/
 │
 ├── scripts/
+│   ├── __pycache__
 │   ├── load/
 │   ├── synthetic/
-│   └── transform/
+│   ├── transform/
+│   └── main.py
 │
 ├── sql/
 │   ├── queries/
@@ -68,6 +96,7 @@ data-project-hospital/
 │   ├── seeds/
 │   └── views/
 │
+├── venv/
 ├── .env
 ├── .gitignore
 ├── README.md

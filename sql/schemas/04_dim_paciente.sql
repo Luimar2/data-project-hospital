@@ -8,4 +8,4 @@ CREATE TABLE dim_paciente (
     cidade VARCHAR(100),
 
     idade INT
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

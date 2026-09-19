@@ -21,4 +21,4 @@ CREATE TABLE fato_atendimentos (
 
     FOREIGN KEY (id_convenio)
         REFERENCES dim_convenio(id_convenio)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -8,4 +8,4 @@ CREATE TABLE dim_leito (
     setor VARCHAR(100),
 
     ativo BOOLEAN DEFAULT TRUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

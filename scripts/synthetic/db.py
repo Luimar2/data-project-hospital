@@ -1,7 +1,7 @@
 """
 scripts/synthetic/db.py
 Módulo central de conexão para a geração de dados sintéticos.
-Localiza o .env na raiz do projeto e valida credenciais.
+Localiza o .env na raiz do projeto, valida credenciais e força utf8mb4.
 """
 
 import os
@@ -38,7 +38,7 @@ if missing:
         f"\n[ERRO CRÍTICO] Variáveis ausentes no .env: {', '.join(missing)}"
     )
 
-# 3. Credenciais e URL
+# 3. Credenciais e URL com charset utf8mb4 explícito
 DB_USER = os.getenv("MYSQL_USER")
 DB_PASSWORD = os.getenv("MYSQL_PASSWORD")
 DB_HOST = os.getenv("MYSQL_HOST")
@@ -50,7 +50,12 @@ password = quote_plus(DB_PASSWORD)
 DATABASE_URL = (
     f"mysql+pymysql://"
     f"{DB_USER}:{password}"
-    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}?charset=utf8mb4"
 )
 
-engine = create_engine(DATABASE_URL)
+# 4. Engine com garantia de UTF-8 e pool resiliente
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"charset": "utf8mb4"},
+    pool_pre_ping=True
+)
