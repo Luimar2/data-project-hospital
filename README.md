@@ -154,7 +154,7 @@ data-project-hospital/
 
 1. **Clonar o repositório:**
 ```bash
-git clone https://github.com/seu-usuario/data-project-hospital.git
+git clone https://github.com/Luimar2/data-project-hospital.git
 cd data-project-hospital
 ```
 
