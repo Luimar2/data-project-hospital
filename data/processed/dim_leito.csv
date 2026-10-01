@@ -1,0 +1,135 @@
+codigo_leito,tipo_leito,setor,ativo
+ENF-001,Enfermaria,Enfermaria,True
+ENF-002,Enfermaria,Enfermaria,True
+ENF-003,Enfermaria,Enfermaria,True
+ENF-004,Enfermaria,Enfermaria,True
+ENF-005,Enfermaria,Enfermaria,True
+ENF-006,Enfermaria,Enfermaria,True
+ENF-007,Enfermaria,Enfermaria,True
+ENF-008,Enfermaria,Enfermaria,True
+ENF-009,Enfermaria,Enfermaria,True
+ENF-010,Enfermaria,Enfermaria,True
+ENF-011,Enfermaria,Enfermaria,True
+ENF-012,Enfermaria,Enfermaria,True
+ENF-013,Enfermaria,Enfermaria,True
+ENF-014,Enfermaria,Enfermaria,True
+ENF-015,Enfermaria,Enfermaria,True
+ENF-016,Enfermaria,Enfermaria,True
+ENF-017,Enfermaria,Enfermaria,True
+ENF-018,Enfermaria,Enfermaria,True
+ENF-019,Enfermaria,Enfermaria,True
+ENF-020,Enfermaria,Enfermaria,True
+ENF-021,Enfermaria,Enfermaria,True
+ENF-022,Enfermaria,Enfermaria,True
+ENF-023,Enfermaria,Enfermaria,True
+ENF-024,Enfermaria,Enfermaria,True
+ENF-025,Enfermaria,Enfermaria,True
+ENF-026,Enfermaria,Enfermaria,True
+ENF-027,Enfermaria,Enfermaria,True
+ENF-028,Enfermaria,Enfermaria,True
+ENF-029,Enfermaria,Enfermaria,True
+ENF-030,Enfermaria,Enfermaria,True
+ENF-031,Enfermaria,Enfermaria,True
+ENF-032,Enfermaria,Enfermaria,True
+ENF-033,Enfermaria,Enfermaria,True
+ENF-034,Enfermaria,Enfermaria,True
+ENF-035,Enfermaria,Enfermaria,True
+ENF-036,Enfermaria,Enfermaria,True
+ENF-037,Enfermaria,Enfermaria,True
+ENF-038,Enfermaria,Enfermaria,True
+ENF-039,Enfermaria,Enfermaria,True
+ENF-040,Enfermaria,Enfermaria,True
+ENF-041,Enfermaria,Enfermaria,True
+ENF-042,Enfermaria,Enfermaria,True
+ENF-043,Enfermaria,Enfermaria,True
+ENF-044,Enfermaria,Enfermaria,True
+ENF-045,Enfermaria,Enfermaria,True
+ENF-046,Enfermaria,Enfermaria,True
+ENF-047,Enfermaria,Enfermaria,True
+ENF-048,Enfermaria,Enfermaria,True
+ENF-049,Enfermaria,Enfermaria,True
+ENF-050,Enfermaria,Enfermaria,True
+ENF-051,Enfermaria,Enfermaria,True
+ENF-052,Enfermaria,Enfermaria,True
+ENF-053,Enfermaria,Enfermaria,True
+ENF-054,Enfermaria,Enfermaria,True
+ENF-055,Enfermaria,Enfermaria,True
+ENF-056,Enfermaria,Enfermaria,True
+ENF-057,Enfermaria,Enfermaria,True
+ENF-058,Enfermaria,Enfermaria,True
+ENF-059,Enfermaria,Enfermaria,True
+ENF-060,Enfermaria,Enfermaria,True
+ENF-061,Enfermaria,Enfermaria,True
+ENF-062,Enfermaria,Enfermaria,True
+ENF-063,Enfermaria,Enfermaria,True
+ENF-064,Enfermaria,Enfermaria,True
+ENF-065,Enfermaria,Enfermaria,True
+ENF-066,Enfermaria,Enfermaria,True
+ENF-067,Enfermaria,Enfermaria,True
+ENF-068,Enfermaria,Enfermaria,True
+ENF-069,Enfermaria,Enfermaria,True
+ENF-070,Enfermaria,Enfermaria,True
+ENF-071,Enfermaria,Enfermaria,True
+ENF-072,Enfermaria,Enfermaria,True
+ENF-073,Enfermaria,Enfermaria,True
+ENF-074,Enfermaria,Enfermaria,True
+ENF-075,Enfermaria,Enfermaria,True
+ENF-076,Enfermaria,Enfermaria,True
+ENF-077,Enfermaria,Enfermaria,True
+ENF-078,Enfermaria,Enfermaria,True
+ENF-079,Enfermaria,Enfermaria,True
+ENF-080,Enfermaria,Enfermaria,True
+MAT-001,Maternidade,Maternidade,True
+MAT-002,Maternidade,Maternidade,True
+MAT-003,Maternidade,Maternidade,True
+MAT-004,Maternidade,Maternidade,True
+MAT-005,Maternidade,Maternidade,True
+MAT-006,Maternidade,Maternidade,True
+MAT-007,Maternidade,Maternidade,True
+MAT-008,Maternidade,Maternidade,True
+MAT-009,Maternidade,Maternidade,True
+MAT-010,Maternidade,Maternidade,True
+MAT-011,Maternidade,Maternidade,True
+MAT-012,Maternidade,Maternidade,True
+MAT-013,Maternidade,Maternidade,True
+MAT-014,Maternidade,Maternidade,True
+MAT-015,Maternidade,Maternidade,True
+MAT-016,Maternidade,Maternidade,True
+MAT-017,Maternidade,Maternidade,True
+MAT-018,Maternidade,Maternidade,True
+MAT-019,Maternidade,Maternidade,True
+MAT-020,Maternidade,Maternidade,True
+PRI-001,Privativo,Privativo,True
+PRI-002,Privativo,Privativo,True
+PRI-003,Privativo,Privativo,True
+PRI-004,Privativo,Privativo,True
+PRI-005,Privativo,Privativo,True
+PRI-006,Privativo,Privativo,True
+PRI-007,Privativo,Privativo,True
+PRI-008,Privativo,Privativo,True
+PRI-009,Privativo,Privativo,True
+PRI-010,Privativo,Privativo,True
+UTI-001,UTI Adulto,UTI Adulto,True
+UTI-002,UTI Adulto,UTI Adulto,True
+UTI-003,UTI Adulto,UTI Adulto,True
+UTI-004,UTI Adulto,UTI Adulto,True
+UTI-005,UTI Adulto,UTI Adulto,True
+UTI-006,UTI Adulto,UTI Adulto,True
+UTI-007,UTI Adulto,UTI Adulto,True
+UTI-008,UTI Adulto,UTI Adulto,True
+UTI-009,UTI Adulto,UTI Adulto,True
+UTI-010,UTI Adulto,UTI Adulto,True
+UTI-001,UTI Neo,UTI Neo,True
+UTI-002,UTI Neo,UTI Neo,True
+UTI-003,UTI Neo,UTI Neo,True
+UTI-004,UTI Neo,UTI Neo,True
+UTI-005,UTI Neo,UTI Neo,True
+UTI-006,UTI Neo,UTI Neo,True
+UTI-007,UTI Neo,UTI Neo,True
+UTI-008,UTI Neo,UTI Neo,True
+UTI-009,UTI Neo,UTI Neo,True
+UTI-010,UTI Neo,UTI Neo,True
+UTI-011,UTI Neo,UTI Neo,True
+UTI-012,UTI Neo,UTI Neo,True
+UTI-013,UTI Neo,UTI Neo,True
+UTI-014,UTI Neo,UTI Neo,True

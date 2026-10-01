@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS dim_paciente (
+    id_paciente INT PRIMARY KEY AUTO_INCREMENT,
+
+    sexo VARCHAR(20),
+
+    faixa_etaria VARCHAR(50),
+
+    cidade VARCHAR(100),
+
+    idade INT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
