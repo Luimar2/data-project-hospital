@@ -16,7 +16,13 @@ O projeto simula um ambiente de produção realista cobrindo um biênio completo
 
 ### 1. Executive Overview (Visão C-Level)
 Consolidação da saúde institucional, faturamento e capacidade instalada.
-![Executive Overview](dashboard/metabase/screenshots/01-executive-overview.png)
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="dashboard/metabase/screenshots/01-executive-overview-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="dashboard/metabase/screenshots/01-executive-overview.png">
+  <img alt="Executive Overview" src="dashboard/metabase/screenshots/01-executive-overview.png">
+</picture>
+
 * **Faturamento Acumulado:** R$ 31,09M no biênio analisado.
 * **Volume Global:** 55.207 atendimentos ambulatoriais/pronto atendimento e 12.707 internações.
 * **Eficiência Geral:** Taxa média de ocupação de **70,8%** com média de permanência geral (ALOS) de **4,6 dias**.
@@ -25,7 +31,13 @@ Consolidação da saúde institucional, faturamento e capacidade instalada.
 
 ### 2. Operational Analytics (Operação, Filas & Leitos)
 Monitoramento em tempo real do fluxo de entrada, tempos de fila e saturação de leitos.
-![Operational Analytics](dashboard/metabase/screenshots/02-operational-analytics.png)
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="dashboard/metabase/screenshots/02-operational-analytics-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="dashboard/metabase/screenshots/02-operational-analytics.png">
+  <img alt="Operational Analytics" src="dashboard/metabase/screenshots/02-operational-analytics.png">
+</picture>
+
 * **Gargalo no Pronto Atendimento:** O PA absorve 60,2% do volume com tempo médio de espera de **70 min**, frente a **18 min** da Emergência.
 * **Ocupação Crítica em UTI:** Ocupação contínua de leitos de UTI Adulto em **76%**, sinalizando a necessidade de gestão ativa de desospitalização.
 
@@ -33,7 +45,13 @@ Monitoramento em tempo real do fluxo de entrada, tempos de fila e saturação de
 
 ### 3. Financial Analytics (Custos & Sustentabilidade)
 Curva de custos por ciclo de permanência e divisão de receita por fonte pagadora.
-![Financial Analytics](dashboard/metabase/screenshots/03-financial-analytics.png)
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="dashboard/metabase/screenshots/03-financial-analytics-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="dashboard/metabase/screenshots/03-financial-analytics.png">
+  <img alt="Financial Analytics" src="dashboard/metabase/screenshots/03-financial-analytics.png">
+</picture>
+
 * **Custo Não-Linear de Internação:** Pacientes com permanência curta (0–5 dias) custam em média **R$ 5.546**, enquanto internações prolongadas (15–20 dias) disparam para **R$ 62.249** (>11x).
 * **Composição de Receita:** O SUS representa a maior fonte individual de receita (**R$ 13,17M**), seguido por Bradesco Saúde (**R$ 7,43M**) e Unimed (**R$ 7,22M**).
 
@@ -41,10 +59,15 @@ Curva de custos por ciclo de permanência e divisão de receita por fonte pagado
 
 ### 4. Clinical Analytics (Qualidade Assistencial & Desfechos)
 Acompanhamento dos desfechos clínicos, mortalidade institucional e perfil de gravidade.
-![Clinical Analytics](dashboard/metabase/screenshots/04-clinical-analytics.png)
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="dashboard/metabase/screenshots/04-clinical-analytics-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="dashboard/metabase/screenshots/04-clinical-analytics.png">
+  <img alt="Clinical Analytics" src="dashboard/metabase/screenshots/04-clinical-analytics.png">
+</picture>
+
 * **Distribuição de Desfechos:** 12.140 altas (95,5%), 296 transferências (2,3%) e 271 óbitos (2,1%).
 * **Concentração Crítica:** A UTI Adulto responde por 51,3% dos óbitos institucionais, com tempo de permanência médio de 7 dias.
-
 ---
 
 ## 🏗️ Arquitetura da Solução
